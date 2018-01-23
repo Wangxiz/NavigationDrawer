@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wangxiz.control.FXMLDocumentController">
+<?import javafx.scene.layout.StackPane?>
+<?import com.jfoenix.controls.JFXRippler?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wangxiz.control.FXMLDocumentController">
    <center>
       <AnchorPane fx:id="root" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="200.0" resizableOnDrag="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="200.0" resizableOnDrag="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </center>
    <top>
-      <ToolBar prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <items>
-            <JFXHamburger fx:id="hamburger" onMousePressed="#onHamburgerMousePress" />
+            <JFXRippler maskType="circle" style="-fx-ripple-color:white;">
+                <StackPane>
+                    <JFXHamburger fx:id="hamburger" onMouseClicked="#onHamburgerMousePress">
+                        <HamburgerBackArrowBasicTransition/>
+                    </JFXHamburger>
+                </StackPane>
+            </JFXRippler>
+            <!--<JFXToggleButton maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMousePressed="#onHamburgerMousePress" text="Open" />-->
+            <JFXButton buttonType="raised" mnemonicParsing="false" onMouseClicked="#handleFullScreen" ripplerFill="#945050" text="Full Screen" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS" />
         </items>
       </ToolBar>
    </top>

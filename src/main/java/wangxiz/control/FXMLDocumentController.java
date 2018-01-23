@@ -8,10 +8,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class FXMLDocumentController {
     @FXML
@@ -25,7 +28,11 @@ public class FXMLDocumentController {
 
     public static AnchorPane rootP;
 
-    private HamburgerBackArrowBasicTransition transition;
+    private Stage primaryState;
+
+    public void setPrimaryState(Stage primaryState) {
+        this.primaryState = primaryState;
+    }
 
     @FXML
     public void initialize() {
@@ -41,16 +48,32 @@ public class FXMLDocumentController {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
+        drawer.setOnDrawerOpening(e -> {
+            Transition animation = hamburger.getAnimation();
+            animation.setRate(1);
+            animation.play();
+        });
+
+        drawer.setOnDrawerClosing(e -> {
+            Transition animation = hamburger.getAnimation();
+            animation.setRate(-1);
+            animation.play();
+        });
     }
 
     @FXML
     private void onHamburgerMousePress() {
-        transition.setRate(transition.getRate()*-1);
-        transition.play();
+        if(drawer.isHidden() || drawer.isHiding()) drawer.open();
+        else drawer.close();
+    }
 
-        if(drawer.isShown()) drawer.close();
-        else drawer.open();
+    @FXML
+    private void handleFullScreen() {
+        if(primaryState.isFullScreen()) {
+            primaryState.setFullScreen(false);
+        }
+        else {
+            primaryState.setFullScreen(true);
+        }
     }
 }

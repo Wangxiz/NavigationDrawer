@@ -19,5 +19,4 @@ public class SidePanelContentController {
     private void handleExit() {
         System.exit(0);
     }
-    
 }
